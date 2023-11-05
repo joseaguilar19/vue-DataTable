@@ -40,11 +40,30 @@
 						Acciones
 					</template>
 					<template #body="slotProps">
-                        <Button icon="pi pi-pencil" type="button" class="p-button-success p-mr-2 p-mb-1" @click="editarProductos(slotProps.data)"></Button>
+                        <Button icon="pi pi-pencil" type="button" class="p-button-success p-mr-2 p-mb-1" @click="editarProductos(slotProps.data.cns)"></Button>
                         <Button icon="pi pi-trash" type="button" class="p-button-danger p-mb-1" @click="confirmaEliminarProductos(slotProps.data.cns)"></Button>
 					</template>
 				</Column>
 			</DataTable>
+
+			<Toolbar class="p-mb-4" v-if="modal">
+				<template v-slot:start>
+				<div>
+					<label for="nombre">Nombre del producto: </label>
+					<InputText type="text" v-model="productoEditar.nombre"/>
+				</div>
+				<div>
+					<label for="cant">Cant: </label>
+					<InputText type="text" v-model="productoEditar.cant"/>
+				</div>
+				<div>
+					<label for="precioUni">$ Precio U.: </label>
+					<InputText type="text" v-model="productoEditar.precioUni"/>
+				</div>
+				<Button icon="pi pi-save" type="button" class="p-button-success" @click="guardarEditar"></Button>
+				<Button icon="pi pi-times-circle" type="button" class="p-button-danger" @click="cancelarEditar"></Button>
+				</template>
+			</Toolbar>
 
 			<br>
 				<Toolbar class="p-mb-4">
@@ -88,7 +107,14 @@ export default {
 				subtotal: null,
 				iva: null,
 				total: null
-			}
+			},
+			productoEditar: {
+				filaEdit: null,
+				nombre: null,
+				cant: null,
+				precioUni: null
+			},
+			modal: false,
 		}
 		},
 		created() {
@@ -109,17 +135,36 @@ export default {
 
 				this.calcularTotal();
 			},		
-			editarProductos() {				
+			editarProductos(cns) {				
 							
+				this.modal = true;
+				this.productoEditar.nombre = this.tablaCompras[cns].nomProducto;
+				this.productoEditar.cant = this.tablaCompras[cns].cantidad;
+				this.productoEditar.precioUni = this.tablaCompras[cns].precioUnitario;
+				this.productoEditar.filaEdit = cns;
+			},
+			guardarEditar(){
+				const cns = this.productoEditar.filaEdit;
+				const cant = this.productoEditar.cant;
+				const precioU = this.productoEditar.precioUni;
+				this.tablaCompras[cns].nomProducto = this.productoEditar.nombre;
+				this.tablaCompras[cns].cantidad = cant;
+				this.tablaCompras[cns].precioUnitario = this.formatoMoneda(precioUni);
+				this.tablaCompras[cns].precioParcial = this.formatoMoneda(cant * precioU);
+				this.$toast.add({severity:'success', summary: 'Confirmación', detail: 'Compra editada', life: 3000});
+				this.modal = false;
+			},
+			cancelarEditar(){
+				this.modal = false;
 			},
 			confirmaEliminarProductos(cns) {
 						
-				
 				if(confirm("¿Eliminar este producto?")){
 					const id = this.tablaCompras.findIndex((columna) => columna.cns === cns);
 
 					if(id !== -1){
 						this.tablaCompras.splice(id, 1);
+						this.calcularTotal();
 					}
 				}
 			},
