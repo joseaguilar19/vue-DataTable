@@ -2,6 +2,9 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 
+//SOCKETS
+import VueSocketIO from 'vue-3-socket.io';
+
 import PrimeVue from 'primevue/config';
 import AutoComplete from 'primevue/autocomplete';
 import Accordion from 'primevue/accordion';
@@ -105,6 +108,12 @@ import BlockViewer from '@/components/BlockViewer.vue';
 import '@/assets/styles.scss';
 
 const app = createApp(App);
+
+app.use(
+    new VueSocketIO({
+        connection: 'http://localhost:3000'
+    })
+);
 
 app.use(router);
 app.use(PrimeVue, { ripple: true });
