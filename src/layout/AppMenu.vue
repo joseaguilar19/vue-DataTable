@@ -11,6 +11,7 @@ const model = ref([
     {
         label: 'UI Components',
         items: [
+            { label: 'Sockets', icon: 'pi pi-fw pi-id-card', to: '/uikit/sockets' },
             { label: 'La suculenta', icon: 'pi pi-fw pi-id-card', to: '/uikit/suculenta' },
             { label: 'Form RFC', icon: 'pi pi-fw pi-id-card', to: '/uikit/formrfc' },
             { label: 'DataTable', icon: 'pi pi-fw pi-id-card', to: '/uikit/datatable' },
