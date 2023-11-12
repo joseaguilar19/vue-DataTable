@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 
 //SOCKETS
-import VueSocketIO from 'vue-3-socket.io';
+//import VueSocketIO from 'vue-3-socket.io';
 
 import PrimeVue from 'primevue/config';
 import AutoComplete from 'primevue/autocomplete';
