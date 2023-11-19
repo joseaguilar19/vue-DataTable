@@ -111,7 +111,7 @@ const app = createApp(App);
 
 app.use(
     new VueSocketIO({
-        connection: 'http://localhost:3000'
+        connection: 'https://vue-data-table-xi.vercel.app/'
     })
 );
 
