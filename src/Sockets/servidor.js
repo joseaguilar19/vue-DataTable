@@ -8,7 +8,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server, {
     allowEIO3: true,
     cors: {
-        origin: ['http://localhost:5173', 'http://localhost:5174'],
+        origin: ['https://vue-data-table-xi.vercel.app/'],
         credentials: true,
         methods: ['GET', 'POST']
     }
