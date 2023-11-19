@@ -14,6 +14,21 @@ const router = createRouter({
                     component: () => import('@/views/Dashboard.vue')
                 },
                 {
+                    path: '/uikit/grafica_api',
+                    name: 'grafica_api',
+                    component: () => import('@/views/uikit/Grafica_API.vue')
+                },
+                {
+                    path: '/uikit/api_datatable',
+                    name: 'api_datatable',
+                    component: () => import('@/views/uikit/API_DataTable.vue')
+                },
+                {
+                    path: '/uikit/sockets',
+                    name: 'sockets',
+                    component: () => import('@/views/uikit/Socket.vue')
+                },
+                {
                     path: '/uikit/suculenta',
                     name: 'suculenta',
                     component: () => import('@/views/uikit/Suculenta.vue')
