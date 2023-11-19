@@ -1,0 +1,24 @@
+create table platillo(
+    id_platillo serial primary key,
+    nombre_platillo varchar not null,
+    precio_platillo varchar not null,
+);
+
+create table ingredientes(
+    id_ingrediente serial primary key,
+    nombre_ingrediente varchar(1000) not null,
+    existencia int not null,
+    u_medida varchar(20) not null,
+    costo_x_unidad float not null,
+    costo_total float not null
+);
+
+create table det_platillo(
+    id_platillo int,
+    id_ingrediente int,
+    cantidad int not null,
+    u_medida varchar(20) not null,
+    primary key(id_platillo, id_ingrediente),
+    foreign key (id_platillo) references platillo(id_platillo),
+    foreign key (id_ingrediente) references ingredientes(id_ingrediente)
+);
